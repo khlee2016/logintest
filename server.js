@@ -37,7 +37,7 @@ function getSessionUsername(req) {
 function requireAuth(req, res, next) {
   const username = getSessionUsername(req);
   if (!username) {
-    return res.status(401).json({ ok: false, message: "로그인이 필요합니다." });
+    return res.status(401).json({ ok: false, message: "로구인이 필요합니다." });
   }
   req.username = username;
   next();
@@ -81,7 +81,7 @@ app.post("/register", async (req, res) => {
   const { username, password } = req.body;
 
   if (!username || typeof username !== "string" || !username.trim()) {
-    return res.status(400).json({ ok: false, message: "사용자 이름을 입력하세요." });
+    return res.status(400).json({ ok: false, message: "사용자 이룸을 입력하세요." });
   }
   if (!password || typeof password !== "string" || password.length < 4) {
     return res.status(400).json({ ok: false, message: "비밀번호는 4자 이상이어야 합니다." });
@@ -108,13 +108,13 @@ app.post("/login", async (req, res) => {
   const { username, password } = req.body;
 
   if (!username || !password) {
-    return res.status(400).json({ ok: false, message: "사용자 이름과 비밀번호를 입력하세요." });
+    return res.status(400).json({ ok: false, message: "사용자 이룸과 비밀번호를 입력하세요." });
   }
 
   const id = String(username).trim();
   const user = users.get(id);
   if (!user) {
-    return res.status(401).json({ ok: false, message: "사용자 이름 또는 비밀번호가 올바르지 않습니다." });
+    return res.status(401).json({ ok: false, message: "사용자 이룸 또는 비밀번호가 올바르지 않습니다." });
   }
 
   const match = await bcrypt.compare(password, user.passwordHash);
