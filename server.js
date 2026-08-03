@@ -37,7 +37,7 @@ function getSessionUsername(req) {
 function requireAuth(req, res, next) {
   const username = getSessionUsername(req);
   if (!username) {
-    return res.status(401).json({ ok: false, message: "로구인이 필요합니다." });
+    return res.status(401).json({ ok: false, message: "로그인이 필요." });
   }
   req.username = username;
   next();
@@ -81,18 +81,18 @@ app.post("/register", async (req, res) => {
   const { username, password } = req.body;
 
   if (!username || typeof username !== "string" || !username.trim()) {
-    return res.status(400).json({ ok: false, message: "사용자 이룸을 입력하세요." });
+    return res.status(400).json({ ok: false, message: "사용자 이름을 입력" });
   }
   if (!password || typeof password !== "string" || password.length < 4) {
-    return res.status(400).json({ ok: false, message: "비밀번호는 4자 이상이어야 합니다." });
+    return res.status(400).json({ ok: false, message: "비밀번호는 4자 이상." });
   }
 
   const id = username.trim();
   if (id === ROOT_USERNAME) {
-    return res.status(403).json({ ok: false, message: "사용할 수 없는 사용자 이름입니다." });
+    return res.status(403).json({ ok: false, message: "사용할 수 없는 사용자 이름." });
   }
   if (users.has(id)) {
-    return res.status(409).json({ ok: false, message: "이미 등록된 사용자입니다." });
+    return res.status(409).json({ ok: false, message: "이미 등록된 사용자." });
   }
 
   const passwordHash = await bcrypt.hash(password, 10);
